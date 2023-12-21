@@ -1,71 +1,41 @@
-// Створити масив чисел, елементи якого задає користувач. Вивести суму цих чисел.
-
-// За основу взяти задачку з урока, де користувач вводить всі елементи одним рядком.
-
-// cancel має припиняти виконання програми, а порожній рядок не повинен сприйматися як 0
-
-function isValidNumber(value) {
-    return !isNaN(parseFloat(value)) && isFinite(value);
-}
-
-function getInput() {
-    let userInput;
-
-    while (true) {
-        userInput = prompt("Введіть число (або натисніть Cancel для завершення):");
-
-        if (userInput === null) {
-            break;
-        }
-
-        if (userInput.trim() === "") {
-            alert("Ви ввели порожній рядок. Будь ласка, введіть число або натисніть Cancel для завершення.");
-            continue;
-        }
-
-        if (isValidNumber(userInput)) {
-            return parseFloat(userInput);
-        } else {
-            alert("Введено нечислове значення. Будь ласка, введіть число або натисніть Cancel для завершення.");
-        }
+while (true) {
+    const elementsInput = prompt('Enter numbers separating them by ","')
+    if (elementsInput === null) {
+        alert("Okay good bye");
+        break;
+    }
+    else if (!elementsInput) {
+        alert("Nothing is entered")
     }
 
-    return null; // Користувач натиснув "Cancel" або ввів порожній рядок
-}
+    else {
+        const userArray = elementsInput.split(',');
 
-function getValidNumbers() {
-    let numbers = [];
-    let userInput;
-
-    while (true) {
-        userInput = getInput();
-
-        if (userInput === null) {
-            break;
+        if (userArray.some(element => isNaN(parseFloat(element.trim())))) {
+            alert("Non-numeric values are entered");
+        }
+        else if (userArray.length < 4) {
+            alert('Too short list')
         }
 
-        numbers.push(userInput);
-    }
+        else {
+            let sum = 0;
+            for (let i = 0; i < userArray.length; i++) {
+                const number = parseFloat(userArray[i].trim());
+                if (isFinite(number)) {
+                    sum += number;
+                }
 
-    return numbers;
+            }
+            alert("The sum of the entered numbers: " + sum)
+        }
+    }
 }
 
-function calculateSum(numbers) {
-    let sum = 0;
-    for (let i = 0; i < numbers.length; i++) {
-        sum += numbers[i];
-    }
-    return sum;
-}
 
-// Отримання валідних чисел від користувача
-const validNumbers = getValidNumbers();
 
-// Виведення валідних чисел
-console.log("Введені валідні числа:", validNumbers);
 
-// Обчислення суми введених чисел
-const sumCalc = calculateSum(validNumbers);
 
-// Виведення суми
-console.log("Сума введених чисел: " + sumCalc);
+
+
+
